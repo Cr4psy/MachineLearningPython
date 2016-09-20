@@ -1,8 +1,6 @@
-
-
-
 from cvxopt.solvers import qp
 from cvxopt.base import matrix
+from linKernel import linKernel
 
 import numpy, pylab, random, math
 
@@ -26,3 +24,4 @@ pylab.plot([p[0] for p in classA],[p[1] for p in classA],'bo')
 pylab.plot([p[0] for p in classB],[p[1] for p in classB], 'ro')
 pylab.show()
 
+linKernel(1,2)
