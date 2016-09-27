@@ -6,22 +6,20 @@ import math
 
 ########
 def LinearK(a, b):
-    return (np.dot(a, b) + 1);
+    result = (np.dot(a, b) + 1)
+    return result;
 #######
 
 
-def PolyK(a, b, p):
-    print "PolyK"
+def PolyK(a, b, p=4):
     return ((np.dot(a, b) + 1) ** p);
 
 ######
 
 def RBFK(a, b, sigma):
-    print "RBF kernel"
     return math.exp(-(np.linalg.norm( a - b)) ** 2 / (2 * sigma ** 2))
 
 ######
 
-def SigmoidK(a, b, k, delta):
-    print "Sigmoid kernel"
+def SigmoidK(a, b, k=1, delta=0.5):
     return np.tanh(np.dot(k * a, b) - delta)
