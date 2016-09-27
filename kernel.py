@@ -7,22 +7,22 @@ import math
 ########
 def LinearK(a, b):
     print "LinearK"
-    return (np.dot(a, b) +1);
+    return (np.dot(a, b) + 1);
 #######
 
 
-def PolyK(a,b, p):
+def PolyK(a, b, p):
     print "PolyK"
-    return ((np.dot(a,b)+1)**p);
+    return ((np.dot(a, b) + 1) ** p);
 
 ######
 
-def RBFK(a,b,sigma):
+def RBFK(a, b, sigma):
     print "RBF kernel"
-    return math.exp(-(np.linalg.norm(a-b))**2/(2*sigma**2))
+    return math.exp(-(np.linalg.norm( a - b)) ** 2 / (2 * sigma ** 2))
 
 ######
 
-def SigmoidK(a, b,k, delta):
+def SigmoidK(a, b, k, delta):
     print "Sigmoid kernel"
-    return np.tanh(np.dot(k*a,b)-delta)
+    return np.tanh(np.dot(k * a, b) - delta)
