@@ -1,37 +1,52 @@
 from cvxopt.solvers import qp
 from cvxopt.base import matrix
-from kernel import LinearK
+from kernel import *
 
 import numpy, pylab, random, math
 
+data_size = 20
 
 def non_zero_alpha_values(matrix):
     return []
 
-# Build matrix P from a given set of data points
-P = [1, 2, 3]
+def create_p_matrix(data):
+    P = [[0 for x in range(data_size)] for y in range(data_size)]
+    for i in range(data_size):
+        for j in range(data_size):
+            xi, yi, li = data[i]
+            xj, yj, lj = data[j]
+            P[i][j] = li * lj * LinearK([xi, yi], [xj, yj])
+    return P   
 
-C = matrix(P)
+def create_g_matrix():
+    G = numpy.zeros((data_size, data_size), int)
+    numpy.fill_diagonal(G, -1)
+    return G
 
-classA = [(random.normalvariate(-1.5,1),random.normalvariate(0.5,1),1.0) for i in range(5)] + \
-   [(random.normalvariate(1.5,1),random.normalvariate(0.5,1),1.0) for i in range(5)]
+def main():
+    classA = [(random.normalvariate(-1.5,1),random.normalvariate(0.5,1),1.0) for i in range(data_size / 4)] + \
+    [(random.normalvariate(1.5,1),random.normalvariate(0.5,1),1.0) for i in range(data_size / 4)]
 
-classB = [(random.normalvariate(0,0.5),random.normalvariate(-0.5,0.5),-1.0) for i in range(10)]
+    classB = [(random.normalvariate(0,0.5),random.normalvariate(-0.5,0.5),-1.0) for i in range(data_size / 2)]
 
-data = classA + classB
+    data = classA + classB
+    random.shuffle(data)
+    P = create_p_matrix(data)
+    G = create_g_matrix()
+    q = numpy.zeros((data_size, 1), int)
+    q.fill(-1)
+    h = [0] * data_size
+    r = qp(matrix(P), matrix(q), matrix(G), matrix(h))
+    alpha = list(r['x'])
+    print alpha
 
-random.shuffle(data)
-print len(data)
-
-
-pylab.hold(True)
-pylab.plot([p[0] for p in classA],[p[1] for p in classA],'bo')
-pylab.plot([p[0] for p in classB],[p[1] for p in classB], 'ro')
-pylab.show()
+#pylab.hold(True)
+#pylab.plot([p[0] for p in classA],[p[1] for p in classA],'bo')
+#pylab.plot([p[0] for p in classB],[p[1] for p in classB], 'ro')
+#pylab.show()
 
 # Build the q vector, G matrix and h vector
 # SIZE IS TEMPORARY
-q = [-1] * 100
-h = [0] * 100
+if __name__ == '__main__':
+   main()
 
-print LinearK(1,2)

@@ -6,7 +6,6 @@ import math
 
 ########
 def LinearK(a, b):
-    print "LinearK"
     return (np.dot(a, b) + 1);
 #######
 
