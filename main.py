@@ -21,6 +21,7 @@ classB = [(random.normalvariate(0,0.5),random.normalvariate(-0.5,0.5),-1.0) for 
 data = classA + classB
 
 random.shuffle(data)
+print len(data)
 
 
 pylab.hold(True)
