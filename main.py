@@ -38,6 +38,7 @@ def indicator(x_new, alpha):
 	
     
 def main():
+    # Generate test data
     classA = [(random.normalvariate(-1.5,1),random.normalvariate(0.5,1),1.0) \
     for i in range(data_size / 4)] + [(random.normalvariate(1.5,1), \
     random.normalvariate(0.5,1),1.0) for i in range(data_size / 4)]
@@ -47,15 +48,16 @@ def main():
 
     data = classA + classB
     random.shuffle(data)
+
+    # Create necessary matrixes and vectors
     P = create_p_matrix(data)
     G = create_g_matrix()
     q = numpy.zeros((data_size, 1))
     q.fill(-1)
     h = numpy.zeros((data_size, 1))
     r = qp(matrix(P), matrix(q), matrix(G), matrix(h))
-    print q
-    alpha = list(r['x'])
 
+    alpha = list(r['x'])
     alpha_without_zeros = non_zero_alpha_values(alpha, data)
     print alpha_without_zeros
     new_point = [4, -3]
