@@ -22,4 +22,4 @@ def RBFK(a, b, sigma):
 ######
 
 def SigmoidK(a, b, k=1, delta=0.5):
-    return np.tanh(np.dot(k * a, b) - delta)
+    return np.tanh(np.dot((k * a), b) - delta)
