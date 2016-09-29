@@ -10,6 +10,22 @@ C = 20
 data_size = 20
 threshold = 0.00001
 
+kernel = 0 # 0 - linear
+           # 1 - polynomial
+           # 2 - RBFK
+           # 3 - Sigmoid
+
+def kernelFunction(kernel_num, xi, yi, xj, yj):
+    if kernel_num == 0:
+        return LinearK([xi, yi], [xj, yj])
+    elif kernel_num == 1:
+        return PolyK([xi, yi], [xj, yj])
+    elif kernel_num == 2:
+        return RBFK([xi, yi], [xj, yj])
+    else:
+        return SigmoidK([xi, yi], [xj, yj])
+
+
 def non_zero_alpha_values(alpha, data):
     non_zero_elements = []
     for i in range(len(alpha)):
@@ -24,7 +40,7 @@ def create_p_matrix(data):
         for j in range(data_size):
             xi, yi, li = data[i]
             xj, yj, lj = data[j]
-            P[i][j] = li * lj * PolyK([xi, yi], [xj, yj])
+            P[i][j] = li * lj * kernelFunction(kernel, xi, yi, xj, yj)
     return P   
 
 def create_g_matrix():
@@ -44,7 +60,8 @@ def indicator(x_new, alpha):
     index = 0
     for i in range(len(alpha)):
         ai, tuple = alpha[i]
-        index = index + ai * tuple[2] * PolyK(x_new, [tuple[0], tuple[1]])
+        index = index + ai * tuple[2] * kernelFunction(kernel, x_new[0],
+                x_new[1], tuple[0], tuple[1])
     return index                   
 	
     
