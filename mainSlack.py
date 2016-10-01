@@ -10,20 +10,22 @@ C = 20
 data_size = 20
 threshold = 0.00001
 
-kernel = 0 # 0 - linear
+kernel = 3 # 0 - linear
            # 1 - polynomial
            # 2 - RBFK
            # 3 - Sigmoid
 
 def kernelFunction(kernel_num, xi, yi, xj, yj):
+    x_array = numpy.array([xi, yi])
+    y_array = numpy.array([xj, yj])
     if kernel_num == 0:
-        return LinearK([xi, yi], [xj, yj])
+        return LinearK(x_array, y_array)
     elif kernel_num == 1:
-        return PolyK([xi, yi], [xj, yj])
+        return PolyK(x_array, y_array)
     elif kernel_num == 2:
-        return RBFK([xi, yi], [xj, yj])
+        return RBFK(x_array, y_array)
     else:
-        return SigmoidK([xi, yi], [xj, yj])
+        return SigmoidK(x_array, y_array)
 
 
 def non_zero_alpha_values(alpha, data):

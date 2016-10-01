@@ -4,7 +4,7 @@ from kernel import *
 
 import numpy, pylab, random, math
 
-data_size = 52
+data_size = 20
 threshold = 0.00001
 
 def non_zero_alpha_values(alpha, data):
@@ -21,7 +21,7 @@ def create_p_matrix(data):
         for j in range(data_size):
             xi, yi, li = data[i]
             xj, yj, lj = data[j]
-            P[i][j] = li * lj * PolyK([xi, yi], [xj, yj])
+            P[i][j] = li * lj * LinearK([xi, yi], [xj, yj])
     return P   
 
 def create_g_matrix():
@@ -33,7 +33,7 @@ def indicator(x_new, alpha):
     index = 0
     for i in range(len(alpha)):
         ai, tuple = alpha[i]
-        index = index + ai * tuple[2] * PolyK(x_new, [tuple[0], tuple[1]])
+        index = index + ai * tuple[2] * LinearK(x_new, [tuple[0], tuple[1]])
     return index                   
 	
     
