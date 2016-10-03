@@ -11,7 +11,7 @@ def LinearK(a, b):
 #######
 
 
-def PolyK(a, b, p=4):
+def PolyK(a, b, p=2):
     return ((np.dot(a, b) + 1) ** p);
 
 ######
@@ -21,5 +21,5 @@ def RBFK(a, b, sigma=1):
 
 ######
 
-def SigmoidK(a, b, k=1, delta=0.2):
+def SigmoidK(a, b, k=0.1, delta=0):
     return np.tanh(np.dot((k * a), b) - delta)
