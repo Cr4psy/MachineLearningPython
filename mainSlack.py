@@ -7,10 +7,10 @@ from kernel import *
 import numpy, pylab, random, math
 
 C = 20
-data_size = 52
+data_size = 20
 threshold = 0.00001
 
-kernel = 0 # 0 - linear
+kernel = 3 # 0 - linear
            # 1 - polynomial
            # 2 - RBFK
            # 3 - Sigmoid
@@ -23,9 +23,9 @@ def kernelFunction(kernel_num, xi, yi, xj, yj, var=0):
     elif kernel_num == 1:
         return PolyK(x_array, y_array, var)
     elif kernel_num == 2:
-        return RBFK(x_array, y_array)
+        return RBFK(x_array, y_array, var)
     else:
-        return SigmoidK(x_array, y_array)
+        return SigmoidK(x_array, y_array,k=var)
 
 
 def non_zero_alpha_values(alpha, data):
@@ -73,16 +73,16 @@ def main():
     for i in range(data_size / 4)] + [(random.normalvariate(1.5,1), \
     random.normalvariate(0.5,1),1.0) for i in range(data_size / 4)]
 
-    classB = [(random.normalvariate(2,0.5),random.normalvariate(-0.5,0.5), \
+    classB = [(random.normalvariate(0,0.5),random.normalvariate(-0.5,0.5), \
     -1.0) for i in range(data_size / 2)]
 
     data = classA + classB
     random.shuffle(data)
 
 
-    for i in range(0,4):
-        kernel=i
-        var=2
+    for i in range(1,2):
+        kernel=3
+        var=1
         # Create necessary matrixes and vectors
         P = create_p_matrix(data, kernel,var)
         G = create_g_matrix()
@@ -95,11 +95,11 @@ def main():
         alpha = list(r['x'])
         alpha_without_zeros = non_zero_alpha_values(alpha, data)
         print alpha_without_zeros
-        new_point = [4, -3]
+        new_point = [3, 0]
         classified = indicator(new_point, alpha_without_zeros, kernel,var)
         print "Classified: {}".format(classified)
-        xrange = numpy.arange(-4, 4, 0.05)
-        yrange = numpy.arange(-4, 4, 0.05)
+        xrange = numpy.arange(-4, 6, 0.05)
+        yrange = numpy.arange(-4, 6, 0.05)
         grid = matrix([[indicator((x, y), alpha_without_zeros,kernel,var) for y in yrange] \
            for x in xrange])
         pylab.hold(True)

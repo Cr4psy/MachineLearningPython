@@ -43,7 +43,7 @@ def main():
     for i in range(data_size / 4)] + [(random.normalvariate(1.5,1), \
     random.normalvariate(0.5,1),1.0) for i in range(data_size / 4)]
 
-    classB = [(random.normalvariate(0,0.5),random.normalvariate(-0.5,0.5), \
+    classB = [(random.normalvariate(4,0.5),random.normalvariate(-0.5,0.5), \
     -1.0) for i in range(data_size / 2)]
 
     data = classA + classB
@@ -63,8 +63,8 @@ def main():
     new_point = [4, -3]
     classified = indicator(new_point, alpha_without_zeros)
     print "Classified: {}".format(classified)
-    xrange = numpy.arange(-4, 4, 0.05)
-    yrange = numpy.arange(-4, 4, 0.05)
+    xrange = numpy.arange(-4, 6, 0.05)
+    yrange = numpy.arange(-4, 6, 0.05)
     grid = matrix([[indicator((x, y), alpha_without_zeros) for y in yrange] \
            for x in xrange])
     pylab.hold(True)

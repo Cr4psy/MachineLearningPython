@@ -17,9 +17,9 @@ def PolyK(a, b, p=2):
 ######
 
 def RBFK(a, b, sigma=1):
-    return math.exp(-(np.linalg.norm((a - b))) ** 2 / (2 * sigma ** 2))
+    return math.exp(-(np.linalg.norm((a - b))) ** 2 / (2* sigma ** 2))
 
 ######
 
 def SigmoidK(a, b, k=0.1, delta=0):
-    return np.tanh(np.dot((k * a), b) - delta)
+    return np.tanh(np.dot((k * a), b) + delta)
