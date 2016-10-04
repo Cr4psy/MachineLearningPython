@@ -10,7 +10,7 @@ C = 20
 data_size = 20
 threshold = 0.00001
 
-kernel = 3 # 0 - linear
+kernel = 0 # 0 - linear
            # 1 - polynomial
            # 2 - RBFK
            # 3 - Sigmoid
@@ -80,9 +80,10 @@ def main():
     random.shuffle(data)
 
 
-    for i in range(1,2):
-        kernel=3
+    for i in range(0,5):
+        kernel=0
         var=1
+        #C=20+(i*1000)
         # Create necessary matrixes and vectors
         P = create_p_matrix(data, kernel,var)
         G = create_g_matrix()
